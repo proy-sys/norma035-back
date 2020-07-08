@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ActividadController extends Controller
 {
-
+    /* Comentario prueba */
     public function index()
     {
         try{
@@ -35,8 +35,6 @@ class ActividadController extends Controller
            return response()->json(['error'=> $ex.getMessage(),206]);
        }
     }
-
-
 
     public function getNumeroActividades(){
         try{
