@@ -6,7 +6,7 @@
   //$router->patch($uri.'/{id}', $controller.'@update');
 
 function resourceEmpresa($uri, $controller, $router)
-{  
+{
     $router->get($uri,$controller.'@index');
     $router->get($uri.'/listaEmpresas',$controller.'@listaEmpresas');
     $router->get($uri.'/{id}/listaPoliticas',$controller.'@listaPoliticas');
@@ -15,46 +15,46 @@ function resourceEmpresa($uri, $controller, $router)
 }
 
 function resourceTrabajador($uri, $controller, $router)
-{  
-   
+{
+
     $router->get($uri.'/cantidad',$controller.'@getNumeroTrabajadores');
     $router->get($uri,$controller.'@index');
     $router->post($uri, $controller.'@store');
     $router->get($uri.'/{id}', $controller.'@show');
     $router->put($uri.'/{id}', $controller.'@update');
     $router->delete($uri.'/{id}', $controller.'@destroy');
-   
+
 }
 
 function resourcePolitica($uri, $controller, $router)
-{  
+{
 
     $router->get($uri,$controller.'@listadoPoliticas');
     $router->post($uri, $controller.'@store');
     $router->get($uri.'/{id}', $controller.'@show');
     $router->put($uri.'/{id}', $controller.'@update');
     $router->delete($uri.'/{id}', $controller.'@destroy');
-   
+
 }
 
 function resourceActividad($uri, $controller, $router)
-{  
-
+{
+    $router->get($uri,$controller.'@index');
     $router->post($uri, $controller.'@store');
     $router->get($uri.'/{id}', $controller.'@show');
     $router->put($uri.'/{id}', $controller.'@update');
     $router->delete($uri.'/{id}', $controller.'@destroy');
-   
+
 }
 
 function resourceDocumento($uri, $controller, $router)
-{  
+{
 
     $router->post($uri, $controller.'@store');
     $router->get($uri.'/{id}', $controller.'@show');
     $router->put($uri.'/{id}', $controller.'@update');
     $router->delete($uri.'/{id}', $controller.'@destroy');
-   
+
 }
 
 //Controlador principal

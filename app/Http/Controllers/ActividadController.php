@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ActividadController extends Controller
 {
-    /* C */
     public function index()
     {
         try{
