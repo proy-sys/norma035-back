@@ -12,7 +12,7 @@ class DocumentoController extends Controller
         //
     }
 
-  
+   /*si se puede */
     public function create()
     {
         //
