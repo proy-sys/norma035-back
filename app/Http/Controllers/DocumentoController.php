@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class DocumentoController extends Controller
 {
-    /*comentario si se puedo*/
+    /*comentario si se puedo aaaaaaaaaaaaaaa*/
     public function index()
     {
         //
