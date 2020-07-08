@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ActividadController extends Controller
 {
-    /* Comentario pruebaxx asdfasdf */
+    /* C */
     public function index()
     {
         try{
