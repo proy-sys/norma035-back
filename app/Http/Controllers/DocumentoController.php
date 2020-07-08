@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 class DocumentoController extends Controller
 {
-    /*comentario si se puedo aaaaaaaaaaaaaaa*/
+    /*comentario si se puedo aaaaaaaaaaaaaaa rrrrrr*/
     public function index()
     {
         //
     }
 
-   /*si se puede  aaaaaaaaaa */
+   /*si se puede  aaaaaaaaaa ccccccccccc */
     public function create()
     {
         //
