@@ -29,7 +29,7 @@ function resourceTrabajador($uri, $controller, $router)
 function resourcePolitica($uri, $controller, $router)
 {  
 
-    $router->get($uri,$controller.'@index');
+    $router->get($uri,$controller.'@listadoPoliticas');
     $router->post($uri, $controller.'@store');
     $router->get($uri.'/{id}', $controller.'@show');
     $router->put($uri.'/{id}', $controller.'@update');

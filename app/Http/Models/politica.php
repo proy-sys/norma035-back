@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Independientes\Imagen;
 
 class politica extends Model
 {
@@ -15,11 +16,19 @@ class politica extends Model
         'id',
         'nombre',
         'descripcion',
+        'imagen'
    ];
 
-  public function empresa(){
+ /* public function empresa(){
 
            return $this->belongsToMany('App\Http\Models\empresa'); 
+  }*/
+
+  
+  public function empresa() {
+
+       return $this->belongsTo('App\Http\Models\empresa');
+
   }
 
 }

@@ -17,14 +17,27 @@ class empresa extends Model
           'telefono',
           'email',
           'logo',
-          'imagen',     
+          'imagen',  
+          'politica_id'   
      ];
 
 
-     public function politicas(){
+    /* public function politicas(){  //relacion m - m
           
           return $this->belongsToMany('App\Http\Models\politica');
 
+     }*/
+
+   /*  public function politica(){
+
+          return $this->hasOne('App\Http\Models\politica');
+
+     }*/
+
+     public function politica() {
+
+          return $this->belongsTo('App\Http\Models\empresa');
+   
      }
 
 }
