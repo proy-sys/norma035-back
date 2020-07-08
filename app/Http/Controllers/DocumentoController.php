@@ -12,11 +12,8 @@ class DocumentoController extends Controller
         //
     }
 
-<<<<<<< HEAD
    /*si se puede  aaaaaaaaaa bbbbbbbb */
-=======
    /*si se puede  aaaaaaaaaa ccccccccccc */
->>>>>>> 0d77553131ad47175671b0b00f3ef7d7bbfbbf9f
     public function create()
     {
         //
