@@ -4,15 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Models\actividad;
+use App\Http\Independientes\Imagen;
 use Symfony\Component\HttpFoundation\Response;
 
 class ActividadController extends Controller
 {
+    function __construct(){
+
+        $this->imagen = new imagen();
+    }
+
     public function index()
     {
         try{
 
             $actividades = actividad::all();
+            foreach ($actividades as $actividad){
+                $actividad->imagen1 = $this->imagen->ValidarImagen($actividad->imagen1);
+                $actividad->imagen2 = $this->imagen->ValidarImagen($actividad->imagen2);
+            }
+
 
             return response()->json($actividades,Response::HTTP_OK);
 
