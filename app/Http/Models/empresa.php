@@ -21,23 +21,9 @@ class empresa extends Model
           'politica_id'   
      ];
 
-
-    /* public function politicas(){  //relacion m - m
-          
-          return $this->belongsToMany('App\Http\Models\politica');
-
-     }*/
-
-   /*  public function politica(){
-
-          return $this->hasOne('App\Http\Models\politica');
-
-     }*/
-
      public function politica() {
+          return $this->belongsTo('App\Http\Models\politica');  
+   }
 
-          return $this->belongsTo('App\Http\Models\empresa');
-   
-     }
 
 }

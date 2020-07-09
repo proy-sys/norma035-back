@@ -27,7 +27,7 @@ class politica extends Model
   
   public function empresa() {
 
-       return $this->belongsTo('App\Http\Models\empresa');
+       return $this->hasOne('App\Http\Models\empresa');
 
   }
 
