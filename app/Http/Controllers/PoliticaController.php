@@ -14,7 +14,7 @@ class PoliticaController extends Controller
    
    function __construct(){
 
-       $this->img = new imagen();
+       $this->im_g= new imagen();
    }
 
    public function listadoPoliticas(){   
@@ -28,14 +28,14 @@ class PoliticaController extends Controller
                $politicas = politica::all();
          
                foreach ($politicas as $politica){
-                     $politica->imagen =  $this->imagen->ValidarImagen($politica->imagen);
+                     $politica->img =  $this->im_g->ValidarImagen($politica->img);
               }   
               
               return response()->json(["politicas"=> $politicas,"status"=>true,"estado"=>Response::HTTP_OK]);      /*true todas las politicas*/
            }
           
           $politica = $empresa->politica;
-          $politica->imagen = $this->img->ValidarImagen($politica->imagen);
+          $politica->img= $this->im_g->ValidarImagen($politica->img);
 
           return response()->json(["politica"=> $politica,"status"=>false,"estado"=>Response::HTTP_OK]); /*  false una politica */
 
@@ -44,21 +44,50 @@ class PoliticaController extends Controller
       }  
 
    }
+   
+   public function asignarPolitica($id){
+      
+    try{
 
-    public function show($id)
-    {
-        try{
-               
-            $politica = politica::find($id);
-             return response()->json($politica,Response::HTTP_OK);
-        
-        }catch(Excepcion $ex){
+         $empresa = empresa::find(1);  /*prueba para la empresa 1*/   
+         $empresa->politica_id = $id;
+         $empresa->save();  
+         return response()->json(Response::HTTP_OK); 
 
+       }catch(Excepcion $ex){
             return response()->json(['error'=> $ex.getMessage(),206]);
-       }
+      }  
+   }
+
+   public function show($id)
+    {
+       try{
+           
+            $empresa = empresa::find(1);  /*Prueba para la empresa 1*/
+            $politica = $empresa->politica;  
+            $politica->img= $this->im_g->ValidarImagen($politica->img);
+            return response()->json(["politica"=> $politica,"status"=>false,"estado"=>Response::HTTP_OK]);  /*  false una politica */
+
+         }catch(Excepcion $ex){
+           return response()->json([
+                             'error' => 'Hubo un error al encontrar el cargo con id => '. $id ." : ". $ex->getMessage()
+                         ], 404);
+         }
     }
+  
+   public function store(Request $request)
+   {
+       try{
+            
+           politica::create($request->all());
 
+           return response()->json(Response::HTTP_OK);
 
+      }catch(Excepcion $ex){
+
+          return response()->json(['error'=> $ex.getMessage(),206]);
+      }
+   }
     public function update(Request $request, $id)
     {
       try{
@@ -67,7 +96,7 @@ class PoliticaController extends Controller
          $politica->fill($request->all());
          $politica->save();
 
-        return response()->json($politica,Response::HTTP_OK);
+         return response()->json(["politica"=> $politica,"status"=>true,"estado"=>Response::HTTP_OK]);
 
       }catch (Exception $ex){
           return response()

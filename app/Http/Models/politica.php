@@ -16,7 +16,7 @@ class politica extends Model
         'id',
         'nombre',
         'descripcion',
-        'imagen'
+        'img'
    ];
 
  /* public function empresa(){
