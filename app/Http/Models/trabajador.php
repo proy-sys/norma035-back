@@ -37,4 +37,10 @@ class trabajador extends Model
           'status',
           'nivel_estudios_status'
      ];
+
+     public function sugerencia_queja(){
+
+          return $this->hasMany('App\Http\Models\sugerencia_queja');
+
+     }
 }
