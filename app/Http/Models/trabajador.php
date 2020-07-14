@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class trabajador extends Model
 {
     protected $table = 'trabajador';
-    protected $primaryKey = 'id'; 
-    public $timestamps = false;  
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 
-     
+
      protected $fillable = [
           'id',
           'documento',
@@ -18,10 +18,13 @@ class trabajador extends Model
           'telefono',
           'email',
           'curp',
+          'direccion',
           'sexo',
           'edad',
           'estado_civil',
           'nivel_estudios',
+          'ocupacion',
+          'departamento',
           'tipo_puesto',
           'tipo_contrato',
           'tipo_personal',

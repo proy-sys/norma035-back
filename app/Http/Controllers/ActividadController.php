@@ -18,12 +18,11 @@ class ActividadController extends Controller
     {
         try{
 
-            $actividades = actividad::all();
+            $actividades = actividad::orderBy('id', 'desc')->get();
             foreach ($actividades as $actividad){
                 $actividad->imagen1 = $this->imagen->ValidarImagen($actividad->imagen1);
                 $actividad->imagen2 = $this->imagen->ValidarImagen($actividad->imagen2);
             }
-
 
             return response()->json($actividades,Response::HTTP_OK);
 
@@ -63,6 +62,9 @@ class ActividadController extends Controller
            try{
 
             $actividad = actividad::find($id);
+            $actividad->imagen1 = $this->imagen->ValidarImagen($actividad->imagen1);
+            $actividad->imagen2 = $this->imagen->ValidarImagen($actividad->imagen2);
+
             return response()->json($actividad,Response::HTTP_OK);
 
        }catch(Excepcion $ex){
