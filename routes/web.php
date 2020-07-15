@@ -58,6 +58,15 @@ function resourceDocumento($uri, $controller, $router)
 
 }
 
+function resourceGuia($uri, $controller, $router)
+{
+    $router->get($uri,$controller.'@index');
+    $router->post($uri, $controller.'@store');
+    $router->get($uri.'/{id}', $controller.'@show');
+    $router->put($uri.'/{id}', $controller.'@update');
+    $router->delete($uri.'/{id}', $controller.'@destroy'); 
+}
+
 function resourceSugerencia_Queja($uri, $controller, $router)
 {
     $router->post($uri, $controller.'@store');
@@ -78,8 +87,11 @@ resourceEmpresa('/empresa','EmpresaController',$router);
 resourceTrabajador('/trabajador','TrabajadorController',$router);
 resourcePolitica('/politica','PoliticaController',$router);
 resourceActividad('/actividad','ActividadController',$router);
+resourceGuia('/guia','GuiaController',$router);
 resourceDocumento('/documento','DocumentoController',$router);
 resourceSugerencia_Queja('/sugerencia_queja','SugerenciaQuejaController',$router);
+
+
 
 
 

@@ -88,7 +88,7 @@ class PoliticaController extends Controller
           return response()->json(['error'=> $ex.getMessage(),206]);
       }
    }
-    public function update(Request $request, $id)
+    public function updateDescripcion(Request $request, $id, $descripcion)
     {
       try{
     
