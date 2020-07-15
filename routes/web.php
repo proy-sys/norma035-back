@@ -50,7 +50,7 @@ function resourceActividad($uri, $controller, $router)
 
 function resourceDocumento($uri, $controller, $router)
 {
-
+    $router->get($uri,$controller.'@index');
     $router->post($uri, $controller.'@store');
     $router->get($uri.'/{id}', $controller.'@show');
     $router->put($uri.'/{id}', $controller.'@update');
