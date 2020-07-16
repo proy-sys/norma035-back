@@ -46,6 +46,8 @@ class EmpresaController extends Controller
          }  
 
     }
+    
+
    
     public function show(Request $request,$id)
     {

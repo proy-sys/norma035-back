@@ -16,23 +16,23 @@ class DocumentoController extends Controller
 
     public function index()
     {
-        try{
+        try {
+           $documentos = documento::
+           select('documentos.id',
+                  'documentos.nombre',
+                  'documentos.tipo',
+                  'documentos.fecha',
+                  'documentos.responsable_id',
+                  'documentos.trabajadores',
+                  'documentos.status',
+                  'trabajador.nombre as trabajador')
+          ->leftJoin('trabajador', 'trabajador.id', '=', 'documentos.responsable_id')
+          ->where('trabajador.empresa_id',1)
+          ->where('documentos.status',true)
+          ->orderBy('documentos.id','desc')
+          ->get();
 
-            //$documentos = documento::orderBy('id', 'desc')->get();
-            $documentos = documento::
-                    select('documentos.id',
-                           'documentos.nombre',
-                           'documentos.tipo',
-                           'documentos.fecha',
-                           'documentos.responsable_id',
-                           'documentos.status',
-                           'trabajador.nombre as trabajador')
-                   ->leftJoin('trabajador', 'trabajador.id', '=', 'documentos.responsable_id')
-                   ->where('trabajador.empresa_id',1)   /*prueba para empresa 1*/
-                   ->orderBy('documentos.id','ASC')
-                   ->get();    /*reducir consulta en modelo*/
-
-            return response()->json($documentos,Response::HTTP_OK);
+          return response()->json($documentos,Response::HTTP_OK);
 
          }catch(Excepcion $ex){
             return response()->json(['error'=> $ex.getMessage(),206]);
@@ -124,7 +124,21 @@ class DocumentoController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy($id){
+
+        try{
+
+            $documento = documento::find($id);
+            $documento->status = false;
+            $documento->save();
+
+           return response()->json(Response::HTTP_OK);
+
+         }catch (Exception $ex){
+            return response()->json(['error'=> $ex.getMessage(),206]);
+         }
+    }
+  /*  public function destroy($id)
     {
         try{
 
@@ -136,5 +150,5 @@ class DocumentoController extends Controller
 
            return response()->json(['error'=> $ex.getMessage(),206]);
        }
-    }
+    }*/
 }

@@ -12,8 +12,11 @@ class TrabajadorController extends Controller
     public function index()
     {
         try{
+            //$trabajadores = trabajador::all();
 
-            $trabajadores = trabajador::all();
+             $trabajadores = trabajador::where('empresa_id',1)          /*prueba para empresa 1 */
+                                        ->where('status',true)  
+                                        ->get();
 			
             return response()->json($trabajadores,Response::HTTP_OK);
  
@@ -40,7 +43,9 @@ class TrabajadorController extends Controller
 
     public function getNumeroTrabajadores(){
         try{
-             $num_trabajadores = trabajador::count();
+             $num_trabajadores = trabajador::where('empresa_id',1)  
+                                           ->where('status',true)  
+                                           ->count();
              return response()->json($num_trabajadores,Response::HTTP_OK);
 
         }catch(Excepcion $ex){
@@ -82,8 +87,26 @@ class TrabajadorController extends Controller
           }
     }
 
+    public function destroy($id){
+
+        try{
+    
+            $trabajador = trabajador::find($id);
+            $trabajador->status  = false;
+            $trabajador->save();
+
+           return response()->json(Response::HTTP_OK);
+ 
+         }catch (Exception $ex){
+             return response()
+             ->json([
+                       'error' => 'Hubo un error al actualizar el operativo con id => '.$id." : ". $ex->getMessage()
+             ], 400);
+         }
+    }
+
   
-    public function destroy($id)
+   /* public function destroy($id)
     {
         try{
 
@@ -95,5 +118,6 @@ class TrabajadorController extends Controller
 
            return response()->json(['error'=> $ex.getMessage(),206]);
        }
-    }
+    }*/
+
 }
