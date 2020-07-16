@@ -20,36 +20,36 @@ class PoliticaController extends Controller
    public function listadoPoliticas(){   
      
       try{
-          
-           $empresa = empresa::find(1);   /* prueba para empresa 1 */ 
-
-           if(is_null($empresa->politica_id)){
-
-               $politicas = politica::all();
+            $politicas = politica::all();
          
                foreach ($politicas as $politica){
                      $politica->img =  $this->im_g->ValidarImagen($politica->img);
               }   
               
               return response()->json(["politicas"=> $politicas,"status"=>true,"estado"=>Response::HTTP_OK]);      /*true todas las politicas*/
-           }
-          
-          $politica = $empresa->politica;
-          $politica->img= $this->im_g->ValidarImagen($politica->img);
-
-          return response()->json(["politica"=> $politica,"status"=>false,"estado"=>Response::HTTP_OK]); /*  false una politica */
 
       }catch(Excepcion $ex){
           return response()->json(['error'=> $ex.getMessage(),206]);
       }  
 
    }
-   
+
+   public function verificarEstado(){
+
+        $empresa = empresa::find(1);
+
+        if(is_null($empresa->politica_id)){
+              return response()->json(["status" => true, "estado" => Response::HTTP_OK]); 
+        }else{
+              return response()->json(["status" => false, "estado" => Response::HTTP_OK, "id" => $empresa->politica->id]); 
+        }
+
+   }
+
    public function asignarPolitica($id){
-      
     try{
 
-         $empresa = empresa::find(1);  /*prueba para la empresa 1*/   
+         $empresa = empresa::find(1);              
          $empresa->politica_id = $id;
          $empresa->save();  
          return response()->json(Response::HTTP_OK); 
@@ -59,11 +59,12 @@ class PoliticaController extends Controller
       }  
    }
 
+
    public function show($id)
     {
        try{
            
-            $empresa = empresa::find(1);  /*Prueba para la empresa 1*/
+            $empresa = empresa::find(1); 
             $politica = $empresa->politica;  
             $politica->img= $this->im_g->ValidarImagen($politica->img);
             return response()->json(["politica"=> $politica,"status"=>false,"estado"=>Response::HTTP_OK]);  /*  false una politica */
@@ -88,20 +89,20 @@ class PoliticaController extends Controller
           return response()->json(['error'=> $ex.getMessage(),206]);
       }
    }
-    public function updateDescripcion(Request $request, $id, $descripcion)
+    public function update(Request $request,$id)
     {
       try{
     
          $politica = politica::find($id);
-         $politica->fill($request->all());
+         $politica->descripcion = $request->post('descripcion');
          $politica->save();
 
-         return response()->json(["politica"=> $politica,"status"=>true,"estado"=>Response::HTTP_OK]);
+         return response()->json(Response::HTTP_OK);
 
       }catch (Exception $ex){
           return response()
           ->json([
-                    'error' => 'Hubo un error al actualizar el operativo con id => '.$id." : ". $ex->getMessage()
+                    'error' => 'Hubo un error al actualizar la descripcion con id => '.$id." : ". $ex->getMessage()
           ], 400);
       }
     }

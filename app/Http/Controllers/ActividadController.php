@@ -18,7 +18,10 @@ class ActividadController extends Controller
     {
         try{
 
-            $actividades = actividad::orderBy('id', 'desc')->get();
+            $actividades = actividad::where('status',true)              /** falta left join o where in para una determinada empresa  **/
+                                    ->orderBy('id', 'desc')
+                                    ->get();
+
             foreach ($actividades as $actividad){
                 $actividad->imagen1 = $this->imagen->ValidarImagen($actividad->imagen1);
                 $actividad->imagen2 = $this->imagen->ValidarImagen($actividad->imagen2);
@@ -92,8 +95,22 @@ class ActividadController extends Controller
           }
     }
 
+    public function destroy($id){
 
-    public function destroy($id)
+        try{
+    
+            $actividad = actividad::find($id);
+            $actividad->status  = false;
+            $actividad->save();
+
+           return response()->json(Response::HTTP_OK);
+ 
+         }catch (Exception $ex){
+              return response()->json(['error'=> $ex.getMessage(),206]);
+         }
+    }
+
+   /* public function destroy($id)
     {
         try{
 
@@ -105,5 +122,5 @@ class ActividadController extends Controller
 
            return response()->json(['error'=> $ex.getMessage(),206]);
        }
-    }
+    }*/
 }

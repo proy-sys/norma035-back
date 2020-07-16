@@ -43,4 +43,6 @@ class trabajador extends Model
           return $this->hasMany('App\Http\Models\sugerencia_queja');
 
      }
+
+  
 }

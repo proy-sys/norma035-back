@@ -24,11 +24,12 @@ function resourceTrabajador($uri, $controller, $router)
     $router->get($uri.'/{id}', $controller.'@show');
     $router->put($uri.'/{id}', $controller.'@update');
     $router->delete($uri.'/{id}', $controller.'@destroy');  /*Datos de liga de gestion*/
-
 }
 
 function resourcePolitica($uri, $controller, $router)
 {
+    
+    $router->get($uri.'/verificarEstado', $controller.'@verificarEstado');
     $router->get($uri.'/{id}', $controller.'@show');
     $router->get($uri.'/{id}/setPolitica', $controller.'@asignarPolitica');
     $router->get($uri,$controller.'@listadoPoliticas');
