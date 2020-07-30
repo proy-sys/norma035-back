@@ -10,14 +10,13 @@ class EmpresaController extends Controller
 {
    
     function __construct(){
-
             $this->imagen = new imagen();
     }
     
     public function index(){
         try{
 
-            $empresa=  empresa::find(1);                /* Prueba para empresa 1 */ 
+            $empresa=  empresa::find(1);                        /* Prueba para empresa 1 */ 
             $empresa->logo    =  $this->imagen->ValidarImagen($empresa->logo);
             $empresa->imagen  =  $this->imagen->ValidarImagen($empresa->imagen);
             

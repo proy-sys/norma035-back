@@ -23,9 +23,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-$app->withFacades(); //Descomentar esta linea para poder utilizar Facades.
+$app->withFacades(); 
 
-$app->withEloquent();  //Descomentar esta linea para poder utilizar eloquent.
+$app->withEloquent();  
 
 /*
 |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
+    'auth' => App\Http\Middleware\Authenticate::class,  
 ]);
 
 /*
@@ -92,10 +92,11 @@ $app->routeMiddleware([
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
-
+ // $app->register(App\Providers\AppServiceProvider::class);
+    $app->register(App\Providers\AuthServiceProvider::class);  
+  //$app->register(App\Providers\EventServiceProvider::class);
+  
+  $app->register(App\Providers\AppServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

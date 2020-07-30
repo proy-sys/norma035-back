@@ -20,7 +20,7 @@ class PoliticaController extends Controller
    public function listadoPoliticas(){   
      
       try{
-            $politicas = politica::all();
+               $politicas = politica::all();
          
                foreach ($politicas as $politica){
                      $politica->img =  $this->im_g->ValidarImagen($politica->img);

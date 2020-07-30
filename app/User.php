@@ -12,16 +12,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable;
 
-     public $table = 'Coordinador'; 
-     protected $primaryKey = 'idCoordinador';  
+     public $table = 'users'; 
+     protected $primaryKey = 'id';  
      public $incrementing = false; 
      
     protected $fillable = [
-        'idCoordinador','Nombre','password','Icono','TipoUsuario','Academias_idAcademia'
+        'id',
+        'username',
+        'password',
+        'api_token'
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password'
     ];
-
+    
 }

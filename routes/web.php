@@ -1,9 +1,10 @@
 <?php
 
 
-//$verbs = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'];
+ //$verbs = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'];
  // $router->patch($uri.'/{id}', $controller.'@update')->name('update'); se puede implementar esta ruta en caso de ser necesario.
-  //$router->patch($uri.'/{id}', $controller.'@update');
+ //$router->patch($uri.'/{id}', $controller.'@update');
+
 
 function resourceEmpresa($uri, $controller, $router)
 {
@@ -23,7 +24,7 @@ function resourceTrabajador($uri, $controller, $router)
     $router->post($uri, $controller.'@store');
     $router->get($uri.'/{id}', $controller.'@show');
     $router->put($uri.'/{id}', $controller.'@update');
-    $router->delete($uri.'/{id}', $controller.'@destroy');  /*Datos de liga de gestion*/
+    $router->delete($uri.'/{id}', $controller.'@destroy');  
 }
 
 function resourcePolitica($uri, $controller, $router)
@@ -76,21 +77,42 @@ function resourceSugerencia_Queja($uri, $controller, $router)
     $router->get($uri.'/{id}/{status}', $controller.'@setStatus');
 }
 
-//Controlador principal
+function resourceRespuesta($uri, $controller, $router)
+{
+     $router->get($uri,$controller.'@index');
+     $router->post($uri, $controller.'@store');
+}
+
+//ruta prinicipal.
 $router->get('/', function () use ($router) {
     return "conectado";
 });
 
 
 
-// Controlador CRUD
-resourceEmpresa('/empresa','EmpresaController',$router);
-resourceTrabajador('/trabajador','TrabajadorController',$router);
-resourcePolitica('/politica','PoliticaController',$router);
-resourceActividad('/actividad','ActividadController',$router);
-resourceGuia('/guia','GuiaController',$router);
-resourceDocumento('/documento','DocumentoController',$router);
-resourceSugerencia_Queja('/sugerencia_queja','SugerenciaQuejaController',$router);
+//rutas login
+$router->post('/users','AuthController@store');  
+$router->post('/login','AuthController@login');
+
+
+//rutas admin
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    resourceEmpresa('/empresa','EmpresaController',$router);
+    resourceTrabajador('/trabajador','TrabajadorController',$router);
+    resourcePolitica('/politica','PoliticaController',$router);
+    resourceActividad('/actividad','ActividadController',$router);
+    resourceGuia('/guia','GuiaController',$router);
+    resourceDocumento('/documento','DocumentoController',$router);
+    resourceSugerencia_Queja('/sugerencia_queja','SugerenciaQuejaController',$router);
+    resourceRespuesta('/respuesta','RespuestasController',$router);
+     
+    //ruta de salida
+    $router->post('/logout','AuthController@logout');
+
+    //usuartio activo
+    $router->post('/user','AuthController@userActive');  
+
+});
 
 
 
