@@ -55,19 +55,24 @@ class AuthController extends Controller
    }
    
    public function userActive(){
-          return auth()->user();
+       try{
+            return auth()->user();
+       }catch(Excepcion $ex){
+              return response()->json(['error'=> $ex.getMessage(),206]);
+       }    
    }
 
    
    public function logout()
    {
+    try{
        $user = auth()->user();
        $user->api_token = null;
        $user->save();
+       return response()->json(Response::HTTP_OK);
 
-       return response()->json([
-           'res' => true,
-           'message' => 'Cuenta cerrada'
-       ]);
+      }catch(Excepcion $ex){
+        return response()->json(['error'=> $ex.getMessage(),206]);
+      }  
    }
 }

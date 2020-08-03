@@ -93,10 +93,11 @@ $router->get('/', function () use ($router) {
 //rutas login
 $router->post('/users','AuthController@store');  
 $router->post('/login','AuthController@login');
+$router->post('/user','AuthController@userActive');
 
 
 //rutas admin
-$router->group(['middleware' => 'auth'], function () use ($router) {
+//$router->group(['middleware' => 'auth'], function () use ($router) {
     resourceEmpresa('/empresa','EmpresaController',$router);
     resourceTrabajador('/trabajador','TrabajadorController',$router);
     resourcePolitica('/politica','PoliticaController',$router);
@@ -105,14 +106,12 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     resourceDocumento('/documento','DocumentoController',$router);
     resourceSugerencia_Queja('/sugerencia_queja','SugerenciaQuejaController',$router);
     resourceRespuesta('/respuesta','RespuestasController',$router);
-     
+    //ruta de actualizaciones
+    
     //ruta de salida
     $router->post('/logout','AuthController@logout');
 
-    //usuartio activo
-    $router->post('/user','AuthController@userActive');  
-
-});
+//});
 
 
 
