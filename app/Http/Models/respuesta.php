@@ -24,10 +24,10 @@ class respuesta extends Model
                ->sum('respuesta');          
    }
 
-   public static function trabjadorGuia($guia){
-       return DB::table('repuestas')
-               ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas')
-               ->where('guia_id',$guia);
+   public static function trabajadorG($guia){
+       return DB::table('respuestas')
+               ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+               ->where('guia_id', $guia);
    }
           
 }

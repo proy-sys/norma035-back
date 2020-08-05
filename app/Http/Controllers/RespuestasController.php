@@ -74,15 +74,13 @@ class RespuestasController extends Controller
        }
     }
 
-    public static function trabajadorGuia($guia){
+    public function trabajadorGuia($id){
         try{
 
-            $repuesta = repuesta::trabjadorGuia($guia)->get();
+            $respuesta = respuesta::trabajadorG($id)->get();
                
-             return response()->json([
-                          "estado" => Response::HTTP_OK,
-                          "respuesta" => $respuesta
-             ]);
+             return response()->json(["estado"     => $estado,
+                                      "respuestas" => $respuestas ]);
              
         }catch(Excepcion $ex){
  

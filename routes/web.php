@@ -79,8 +79,9 @@ function resourceSugerencia_Queja($uri, $controller, $router)
 
 function resourceRespuesta($uri, $controller, $router)
 {
+    $router->get($uri.'/g/{id}',$controller.'@trabajadorGuia');
      $router->post($uri.'/addRespuestas/{id}',$controller.'@addRespuestasGuia');
-     $router->get($uri.'/respuestaGuia/{id}',$controller.'@trabajadorGuia');
+     
 }
 
 
