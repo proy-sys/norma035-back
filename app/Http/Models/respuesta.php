@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class respuesta extends Model
 {
@@ -11,9 +12,16 @@ class respuesta extends Model
     public $timestamps = false; 
 
     protected $fillable = [
-        'pregunta_id',
         'trabajador_id',
-        'respuesta',  
+        'pregunta_id',
+        'respuesta',
+        'guia_id',  
    ];
 
+   public static function calculoTrabajador($id){
+      return DB::table('respuestas')
+               ->where('trabajador_id',$id)
+               ->sum('respuesta');          
+   }
+          
 }

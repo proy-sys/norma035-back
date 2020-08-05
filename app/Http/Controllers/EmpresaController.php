@@ -26,7 +26,7 @@ class EmpresaController extends Controller
              return response()->json(['error'=> $ex.getMessage(),206]);
           }
     }
-
+    
     public function listaEmpresas()
     {
        
