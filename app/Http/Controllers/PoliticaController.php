@@ -75,7 +75,7 @@ class PoliticaController extends Controller
                          ], 404);
          }
     }
-  
+   
    public function store(Request $request)
    {
        try{

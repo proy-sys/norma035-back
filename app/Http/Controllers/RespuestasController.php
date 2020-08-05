@@ -74,5 +74,21 @@ class RespuestasController extends Controller
        }
     }
 
+    public static function trabajadorGuia($guia){
+        try{
+
+            $repuesta = repuesta::trabjadorGuia($guia)->get();
+               
+             return response()->json([
+                          "estado" => Response::HTTP_OK,
+                          "respuesta" => $respuesta
+             ]);
+             
+        }catch(Excepcion $ex){
+ 
+            return response()->json(['error'=> $ex.getMessage(),206]);
+        }
+    }
+
 
 }
