@@ -124,30 +124,4 @@ class RespuestasController extends Controller
     }
 
 
-    public function trabajadorResultado($guia){
-        try{
-            $respuestaTrabajador = respuesta::trabajadorResultado($guia)->get(); 
-
-            return response()->json($respuestaTrabajador,Response::HTTP_OK);
-
-        }catch(Excepcion $ex){
-            return response()->json(['error'=> $ex.getMessage(),206]);
-        }
-    }
-    
-
-    public function resultadoTotal($guia){
-        $data = [];
-
-        try{
-            $respuestaTrabajador = respuesta::trabajadorResultado($guia)->get();
-            foreach($respuestaTrabajador as $res){
-             
-             
-            }
-        }catch(Excepcion $ex){
-            return response()->json(['error'=> $ex.getMessage(),206]);
-        }
-    }
-
 }
