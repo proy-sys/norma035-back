@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Models\respuesta;
+use App\Http\Models\trabajador;
 use App\Http\Independientes\calculo;
 use Symfony\Component\HttpFoundation\Response;
-
+use DB;
 class RespuestasController extends Controller
 {
    
@@ -74,7 +75,8 @@ class RespuestasController extends Controller
        }
     }
 
-    public function trabajadorGuia($id){
+
+   public function trabajadorGuia($id){
         try{
 
             $respuesta = respuesta::trabajadorG($id)->get();
@@ -88,5 +90,31 @@ class RespuestasController extends Controller
         }
     }
 
+
+    public function trabajadorResultado($guia){
+        try{
+            $respuestaTrabajador = respuesta::trabajadorResultado($guia)->get(); 
+
+            return response()->json($respuestaTrabajador,Response::HTTP_OK);
+
+        }catch(Excepcion $ex){
+            return response()->json(['error'=> $ex.getMessage(),206]);
+        }
+    }
+    
+
+    public function resultadoTotal($guia){
+        $data = [];
+
+        try{
+            $respuestaTrabajador = respuesta::trabajadorResultado($guia)->get();
+            foreach($respuestaTrabajador as $res){
+             
+             
+            }
+        }catch(Excepcion $ex){
+            return response()->json(['error'=> $ex.getMessage(),206]);
+        }
+    }
 
 }

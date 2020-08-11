@@ -35,7 +35,8 @@ class trabajador extends Model
           'tiempo_experiencia',
           'empresa_id',
           'status',
-          'nivel_estudios_status'
+          'nivel_estudios_status',
+          'users_id'
      ];
 
      public function sugerencia_queja(){

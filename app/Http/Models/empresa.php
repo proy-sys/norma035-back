@@ -21,9 +21,10 @@ class empresa extends Model
           'politica_id'   
      ];
 
-     public function politica() {
+   public function politica() {
           return $this->belongsTo('App\Http\Models\politica');  
    }
+
 
 
 }

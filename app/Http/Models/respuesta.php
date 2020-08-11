@@ -29,5 +29,17 @@ class respuesta extends Model
                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
                ->where('guia_id', $guia);
    }
+
+   public static function trabajadorResultado($guia){
+      return  DB::table('respuestas')
+                ->select('trabajador.id',
+                         'trabajador.nombre',
+                         'trabajador.email',
+                         'trabajador.ocupacion',
+                          DB::raw('sum(respuestas.respuesta) as resultado'))
+              ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+              ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+              ->where('respuestas.guia_id',$guia);
+      }
+   }
           
-}
