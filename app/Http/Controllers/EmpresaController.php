@@ -8,35 +8,35 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EmpresaController extends Controller
 {
-   
+
     function __construct(){
             $this->imagen = new imagen();
     }
-    
+
     public function index(){
         try{
-            
-            //$empresa=  empresa::find(1);  
-            $empresa = empresa::find($user);                  
+
+            $empresa=  empresa::find(1);
+            // $empresa = empresa::find($user);
             $empresa->logo    =  $this->imagen->ValidarImagen($empresa->logo);
             $empresa->imagen  =  $this->imagen->ValidarImagen($empresa->imagen);
-            
+
              return response()->json($empresa ,Response::HTTP_OK);
-    
+
           }catch(Excepcion $ex){
              return response()->json(['error'=> $ex.getMessage(),206]);
           }
-        
+
 
     }
-    
+
 
     public function listaEmpresas()
     {
-       
+
        try{
             $empresas = empresa::all();
-            
+
             foreach ($empresas as $empresa){
                 $empresa->logo   =  $this->imagen->ValidarImagen($empresa->logo);
                 $empresa->imagen =  $this->imagen->ValidarImagen($empresa->imagen);
@@ -46,20 +46,20 @@ class EmpresaController extends Controller
 
          }catch(Excepcion $ex){
              return response()->json(['error'=> $ex.getMessage(),206]);
-         }  
+         }
 
     }
-    
 
-   
+
+
     public function show(Request $request,$id)
     {
        try{
-           
+
             $empresa = empresa::find($id);
             $empresa->logo    =  $this->imagen->ValidarImagen($empresa->logo);
             $empresa->imagen  =  $this->imagen->ValidarImagen($empresa->imagen);
-            
+
             return response()->json($empresa,Response::HTTP_OK);
 
          }catch(Excepcion $ex){
@@ -68,10 +68,10 @@ class EmpresaController extends Controller
                          ], 404);
          }
     }
-  
+
     public function update(Request $request, $id){
         try{
-    
+
          $empresa = empresa::find($id);
          $empresa->fill($request->all());
          $empresa->save();

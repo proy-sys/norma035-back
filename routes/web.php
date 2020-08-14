@@ -78,13 +78,30 @@ function resourceSugerencia_Queja($uri, $controller, $router)
 }
 
 function resourceRespuesta($uri, $controller, $router)
-{  
+{
      $router->get($uri.'/trabajadorResultado/{guia}',$controller.'@trabajadorResultado');
      $router->get($uri.'/g/{id}',$controller.'@trabajadorGuia');
+     $router->get($uri.'/gui/{id}/{trab}',$controller.'@trabajadorGui2');
      $router->post($uri.'/addRespuestasGuia/{id}',$controller.'@addRespuestasGuia');
      // ----- Gráficas -------
      $router->get($uri.'/resultadoTotal/{guia}',$controller.'@resultadoTotal');
-     $router->get($uri.'/resultadoAmbiente/{guia}',$controller.'@resultadoAmbiente');
+     // ----- Categorías ------
+     $router->get($uri.'/resultadoCategoriaAmb/{guia}',$controller.'@resultadoCategoriaAmb');
+     $router->get($uri.'/resultadoCategoriaFac/{guia}',$controller.'@resultadoCategoriaFac');
+     $router->get($uri.'/resultadoCategoriaOrg/{guia}',$controller.'@resultadoCategoriaOrg');
+     $router->get($uri.'/resultadoCategoriaLid/{guia}',$controller.'@resultadoCategoriaLid');
+     $router->get($uri.'/resultadoCategoriaEnt/{guia}',$controller.'@resultadoCategoriaEnt');
+     // ----- Domionios ------
+     $router->get($uri.'/resultadoDominio1/{guia}',$controller.'@resultadoDominio1');
+     $router->get($uri.'/resultadoDominio2/{guia}',$controller.'@resultadoDominio2');
+     $router->get($uri.'/resultadoDominio3/{guia}',$controller.'@resultadoDominio3');
+     $router->get($uri.'/resultadoDominio4/{guia}',$controller.'@resultadoDominio4');
+     $router->get($uri.'/resultadoDominio5/{guia}',$controller.'@resultadoDominio5');
+     $router->get($uri.'/resultadoDominio6/{guia}',$controller.'@resultadoDominio6');
+     $router->get($uri.'/resultadoDominio7/{guia}',$controller.'@resultadoDominio7');
+     $router->get($uri.'/resultadoDominio8/{guia}',$controller.'@resultadoDominio8');
+     $router->get($uri.'/resultadoDominio9/{guia}',$controller.'@resultadoDominio9');
+     $router->get($uri.'/resultadoDominio10/{guia}',$controller.'@resultadoDominio10');
 
 }
 

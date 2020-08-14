@@ -30,6 +30,12 @@ class respuesta extends Model
                ->where('guia_id', $guia);
    }
 
+   public static function trabajadorGui($guia, $trab){
+    return DB::table('respuestas')
+            ->where('guia_id', $guia)
+            ->where('trabajador_id', $trab);
+}
+
    public static function trabajadorResultado($guia){
       return  DB::table('respuestas')
                 ->select('trabajador.id',
@@ -41,4 +47,161 @@ class respuesta extends Model
               ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
               ->where('respuestas.guia_id',$guia);
       }
+
+    //  ************************************************** CATEGORÍAS *********************************************
+    public static function trabajadorCategoriaAmb($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+
+    public static function trabajadorCategoriaFac($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+
+    public static function trabajadorCategoriaOrg($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+
+    public static function trabajadorCategoriaLid($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+
+    public static function trabajadorCategoriaEnt($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+
+    //  ************************************************** DOMINIOS *********************************************
+
+    // ==================================================== 1 ========================================
+    public static function trabajadorDominio1($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+
+    // ==================================================== 2 ========================================
+    public static function trabajadorDominio2($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+    // ==================================================== 3 ========================================
+    public static function trabajadorDominio3($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+    // ==================================================== 4 ========================================
+    public static function trabajadorDominio4($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+    // ==================================================== 5 ========================================
+    public static function trabajadorDominio5($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+    // ==================================================== 6 ========================================
+    public static function trabajadorDominio6($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+    // ==================================================== 7 ========================================
+    public static function trabajadorDominio7($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+    // ==================================================== 8 ========================================
+    public static function trabajadorDominio8($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+
+    // ==================================================== 7 ========================================
+    public static function trabajadorDominio9($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+    // ==================================================== 8 ========================================
+    public static function trabajadorDominio10($guia, $pregun){
+        return  DB::table('respuestas')
+                  ->select('trabajador.id',
+                            DB::raw('sum(respuestas.respuesta) as resultado'))
+                ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+                ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
+                ->where('respuestas.guia_id',$guia)
+                ->whereIn('pregunta_id', $pregun);
+    }
+
 }
