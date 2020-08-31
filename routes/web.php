@@ -1,24 +1,22 @@
 <?php
 
 
- //$verbs = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'];
+ // $verbs = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'];
  // $router->patch($uri.'/{id}', $controller.'@update')->name('update'); se puede implementar esta ruta en caso de ser necesario.
- //$router->patch($uri.'/{id}', $controller.'@update');
+ // $router->patch($uri.'/{id}', $controller.'@update');
+ 
 
-
-function resourceEmpresa($uri, $controller, $router)
-{
+function resourceEmpresa($uri, $controller, $router){
     $router->get($uri,$controller.'@index');
     $router->get($uri.'/listaEmpresas',$controller.'@listaEmpresas');
     $router->get($uri.'/{id}/listaPoliticas',$controller.'@listaPoliticas');
     $router->get($uri.'/{id}', $controller.'@show');
+    $router->get($uri.'/cp/{codigoPostal}',$controller.'@obtenerMunicipioEstado');
     $router->put($uri.'/{id}', $controller.'@update');
-
 }
 
 function resourceTrabajador($uri, $controller, $router)
 {
-
     $router->get($uri.'/cantidad',$controller.'@getNumeroTrabajadores');
     $router->get($uri,$controller.'@index');
     $router->post($uri, $controller.'@store');
@@ -85,7 +83,6 @@ function resourceRespuesta($uri, $controller, $router)
      // ----- Gráficas -------
      $router->get($uri.'/resultadoTotal/{guia}',$controller.'@resultadoTotal');
      $router->get($uri.'/resultadoAmbiente/{guia}',$controller.'@resultadoAmbiente');
-
 }
 
 
@@ -102,8 +99,8 @@ $router->post('/login','AuthController@login');
 $router->post('/user','AuthController@userActive');
 
 
-//rutas admin
-//$router->group(['middleware' => 'auth'], function () use ($router) {
+
+//->group(['middleware' => 'auth'], function () use ($router) {
     resourceEmpresa('/empresa','EmpresaController',$router);
     resourceTrabajador('/trabajador','TrabajadorController',$router);
     resourcePolitica('/politica','PoliticaController',$router);
@@ -112,11 +109,7 @@ $router->post('/user','AuthController@userActive');
     resourceDocumento('/documento','DocumentoController',$router);
     resourceSugerencia_Queja('/sugerencia_queja','SugerenciaQuejaController',$router);
     resourceRespuesta('/respuesta','RespuestasController',$router);
-    //ruta de actualizaciones
-
-    //ruta de salida
     $router->post('/logout','AuthController@logout');
-
 //});
 
 

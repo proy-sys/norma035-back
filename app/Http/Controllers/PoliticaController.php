@@ -66,7 +66,7 @@ class PoliticaController extends Controller
            
             $empresa = empresa::find(1); 
             $politica = $empresa->politica;  
-            $politica->img= $this->im_g->ValidarImagen($politica->img);
+            $politica->img = $this->im_g->ValidarImagen($politica->img);
             return response()->json(["politica"=> $politica,"status"=>false,"estado"=>Response::HTTP_OK]);  /*  false una politica */
 
          }catch(Excepcion $ex){

@@ -109,18 +109,4 @@ class ActividadController extends Controller
               return response()->json(['error'=> $ex.getMessage(),206]);
          }
     }
-
-   /* public function destroy($id)
-    {
-        try{
-
-            $actividad = actividad::find($id);
-            $actividad->delete();
-            return response()->json(Response::HTTP_OK);
-
-       }catch(Excepcion $ex){
-
-           return response()->json(['error'=> $ex.getMessage(),206]);
-       }
-    }*/
 }

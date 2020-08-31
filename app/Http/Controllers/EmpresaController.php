@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Models\empresa;
+use App\Http\Models\codigo_postal;
 use App\Http\Independientes\Imagen;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,19 +18,16 @@ class EmpresaController extends Controller
         try{
             
             //$empresa=  empresa::find(1);  
-            $empresa = empresa::find($user);                  
+            $empresa = empresa::find(1);                  
             $empresa->logo    =  $this->imagen->ValidarImagen($empresa->logo);
             $empresa->imagen  =  $this->imagen->ValidarImagen($empresa->imagen);
-            
-             return response()->json($empresa ,Response::HTTP_OK);
+            return response()->json($empresa ,Response::HTTP_OK);
     
           }catch(Excepcion $ex){
              return response()->json(['error'=> $ex.getMessage(),206]);
           }
-        
 
     }
-    
 
     public function listaEmpresas()
     {
@@ -46,8 +44,8 @@ class EmpresaController extends Controller
 
          }catch(Excepcion $ex){
              return response()->json(['error'=> $ex.getMessage(),206]);
-         }  
-
+         }
+        
     }
     
 
@@ -83,6 +81,22 @@ class EmpresaController extends Controller
           ->json([
                     'error' => 'Hubo un error al actualizar el operativo con id => '.$id." : ". $ex->getMessage()
           ], 400);
+      }
+   }
+   
+   public function obtenerMunicipioEstado($codigoPostal){
+    try{
+
+        $estadoMunicipio  = codigo_postal::estadoMunicipio($codigoPostal); 
+        
+        if($estadoMunicipio == null){
+             $estadoMunicipio = 1;
+        }
+
+        return response()->json($estadoMunicipio,Response::HTTP_OK);
+
+      }catch(Excepcion $ex){
+         return response()->json(['error'=> $ex.getMessage(),206]);
       }
    }
 }
