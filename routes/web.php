@@ -74,6 +74,7 @@ function resourceSugerencia_Queja($uri, $controller, $router)
     $router->post($uri, $controller.'@store');
     $router->get($uri,$controller.'@listadoSugerencia_Queja');
     $router->get($uri.'/{id}', $controller.'@show');
+    $router->put($uri.'/{id}', $controller.'@update');
     $router->get($uri.'/{id}/{status}', $controller.'@setStatus');
 }
 
