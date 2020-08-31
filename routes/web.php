@@ -11,7 +11,7 @@ function resourceEmpresa($uri, $controller, $router){
     $router->get($uri.'/listaEmpresas',$controller.'@listaEmpresas');
     $router->get($uri.'/{id}/listaPoliticas',$controller.'@listaPoliticas');
     $router->get($uri.'/{id}', $controller.'@show');
-    $router->get($uri.'/cp/{codigoPostal}',$controller.'@obtenerMunicipioEstado');
+    $router->get($uri.'/cp/{codigoPostal}',$controller.'@obtenerMunicipioEstado'); 
     $router->put($uri.'/{id}', $controller.'@update');
 }
 

@@ -101,5 +101,5 @@ class EmpresaController extends Controller
       }catch(Excepcion $ex){
          return response()->json(['error'=> $ex.getMessage(),206]);
       }
-   }
+   } 
 }

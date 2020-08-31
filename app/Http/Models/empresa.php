@@ -36,7 +36,7 @@ class empresa extends Model
                              'codigos_postales.estado')
                     ->leftJoin('codigos_postales', 'codigos_postales.cp', '=', 'empresa.codigos_postales_cp')
                     ->where('cp',$codigoPostal)
-                    ->first();
+                    ->first(); 
    }
 
 
