@@ -9,8 +9,8 @@ class sugerencia_queja extends Model
 {
 
     protected $table = 'sugerencia_queja';
-    protected $primaryKey = 'id'; 
-    public $timestamps = false;  
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 
     protected $fillable = [
         'id',
@@ -18,6 +18,9 @@ class sugerencia_queja extends Model
         'status',
         'tipo',
         'trabajador_id',
+        'en_proceso',
+        'conclusion',
+        'estatus'
    ];
 
    public function trabajador(){
@@ -29,7 +32,7 @@ class sugerencia_queja extends Model
   }*/
 
 
-   
+
 
 
 
