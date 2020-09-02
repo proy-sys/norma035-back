@@ -17,8 +17,7 @@ class EmpresaController extends Controller
     public function index(){
         try{
             
-            //$empresa=  empresa::find(1);  
-            $empresa = empresa::find($user);                  
+            $empresa=  empresa::find(1);                  
             $empresa->logo    =  $this->imagen->ValidarImagen($empresa->logo);
             $empresa->imagen  =  $this->imagen->ValidarImagen($empresa->imagen);
             
@@ -50,9 +49,7 @@ class EmpresaController extends Controller
          }  
 
     }
-
-
-
+    
     public function show(Request $request,$id)
     {
        try{

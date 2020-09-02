@@ -101,7 +101,6 @@ function resourceRespuesta($uri, $controller, $router)
      $router->get($uri.'/resultadoDominio8/{guia}',$controller.'@resultadoDominio8');
      $router->get($uri.'/resultadoDominio9/{guia}',$controller.'@resultadoDominio9');
      $router->get($uri.'/resultadoDominio10/{guia}',$controller.'@resultadoDominio10');
-
 }
 
 
@@ -118,10 +117,9 @@ $router->post('/login','AuthController@login');
 $router->post('/user','AuthController@userActive');
 
 
-
-//->group(['middleware' => 'auth'], function () use ($router) {
-    resourceEmpresa('/empresa','EmpresaController',$router);
+//$router->group(['middleware' => 'auth'], function () use ($router){
     resourceTrabajador('/trabajador','TrabajadorController',$router);
+    resourceEmpresa('/empresa','EmpresaController',$router);
     resourcePolitica('/politica','PoliticaController',$router);
     resourceActividad('/actividad','ActividadController',$router);
     resourceGuia('/guia','GuiaController',$router);
