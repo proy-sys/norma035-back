@@ -39,13 +39,30 @@ class TrabajadorController extends Controller
        }
     }
 
+    public function acceptPolitica($id){
 
+        try{
+            
+            $user = auth()->user();
+            $trabajador = trabajador::find($user->id);
+            $trabajador->acceptPolitica = true;
+            $trabajador->save();
+
+            return response()->json(Response::HTTP_OK);
+           
+       }catch(Excepcion $ex){
+
+           return response()->json(['error'=> $ex.getMessage(),206]);
+       }
+       
+    }
 
     public function getNumeroTrabajadores(){
         try{
              $num_trabajadores = trabajador::where('empresa_id',1)  
                                            ->where('status',true)  
                                            ->count();
+             
              return response()->json($num_trabajadores,Response::HTTP_OK);
 
         }catch(Excepcion $ex){

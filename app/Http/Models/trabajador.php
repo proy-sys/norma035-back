@@ -36,7 +36,8 @@ class trabajador extends Model
           'empresa_id',
           'status',
           'nivel_estudios_status',
-          'users_id'
+          'users_id',
+          'accept_politica'
      ];
 
      public function sugerencia_queja(){
@@ -44,6 +45,10 @@ class trabajador extends Model
           return $this->hasMany('App\Http\Models\sugerencia_queja');
 
      }
+
+    /* public static function asignarPolitica($id){
+          DB::table(trabajador)
+     }*/
 
   
 }

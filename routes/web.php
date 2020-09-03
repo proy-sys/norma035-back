@@ -17,6 +17,7 @@ function resourceEmpresa($uri, $controller, $router){
 
 function resourceTrabajador($uri, $controller, $router)
 {
+    $router->get($uri.'/acceptPolitica/{id}',$controller.'@acceptPolitica');
     $router->get($uri.'/cantidad',$controller.'@getNumeroTrabajadores');
     $router->get($uri,$controller.'@index');
     $router->post($uri, $controller.'@store');
@@ -32,6 +33,7 @@ function resourcePolitica($uri, $controller, $router)
     $router->get($uri.'/{id}', $controller.'@show');
     $router->get($uri.'/{id}/setPolitica', $controller.'@asignarPolitica');
     $router->get($uri,$controller.'@listadoPoliticas');
+    
     $router->post($uri, $controller.'@store');
     $router->put($uri.'/{id}', $controller.'@update');
     $router->delete($uri.'/{id}', $controller.'@destroy');
@@ -117,7 +119,7 @@ $router->post('/login','AuthController@login');
 $router->post('/user','AuthController@userActive');
 
 
-//$router->group(['middleware' => 'auth'], function () use ($router){
+$router->group(['middleware' => 'auth'], function () use ($router){
     resourceTrabajador('/trabajador','TrabajadorController',$router);
     resourceEmpresa('/empresa','EmpresaController',$router);
     resourcePolitica('/politica','PoliticaController',$router);
@@ -127,7 +129,7 @@ $router->post('/user','AuthController@userActive');
     resourceSugerencia_Queja('/sugerencia_queja','SugerenciaQuejaController',$router);
     resourceRespuesta('/respuesta','RespuestasController',$router);
     $router->post('/logout','AuthController@logout');
-//});
+});
 
 
 

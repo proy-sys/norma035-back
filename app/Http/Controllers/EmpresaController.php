@@ -15,9 +15,10 @@ class EmpresaController extends Controller
     }
 
     public function index(){
+        
         try{
             
-            $empresa=  empresa::find(1);                  
+            $empresa =  empresa::find(1);                  
             $empresa->logo    =  $this->imagen->ValidarImagen($empresa->logo);
             $empresa->imagen  =  $this->imagen->ValidarImagen($empresa->imagen);
             
@@ -26,7 +27,6 @@ class EmpresaController extends Controller
           }catch(Excepcion $ex){
              return response()->json(['error'=> $ex.getMessage(),206]);
           }
-
 
     }
 
