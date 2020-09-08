@@ -23,8 +23,25 @@ class empresa extends Model
           'codigos_postales_cp'  
      ];
 
-   public function politica() {
+   /* public function politica() {
           return $this->belongsTo('App\Http\Models\politica');  
+   } */
+
+   public static function infoEmpresa($idTrabajador){
+
+      return DB::table('trabajador')
+              ->select('empresa.id',
+                       'empresa.razon_social',
+                       'empresa.direccion',
+                       'empresa.telefono',
+                       'empresa.email',
+                       'empresa.logo',
+                       'empresa.imagen',
+                       'empresa.politica_id',
+                       'empresa.codigos_postales_cp')
+              ->leftJoin('empresa', 'empresa.id', '=', 'trabajador.empresa_id') 
+              ->where('trabajador.id',$idTrabajador)
+              ->first();
    }
 
    public static function estadoMunicipio($codigoPostal){
@@ -37,6 +54,11 @@ class empresa extends Model
                     ->leftJoin('codigos_postales', 'codigos_postales.cp', '=', 'empresa.codigos_postales_cp')
                     ->where('cp',$codigoPostal)
                     ->first(); 
+   }
+
+   public static function updatePolitica($idEmpresa,$idPolitica){
+          DB::table('empresa')->where('id', $idEmpresa)
+            ->update(['politica_id' => $idPolitica]);
    }
 
 

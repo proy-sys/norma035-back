@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Models\actividad;
+use App\Http\Models\empresa;
 use App\Http\Independientes\Imagen;
 use Symfony\Component\HttpFoundation\Response;
-
 class ActividadController extends Controller
 {
     function __construct(){
@@ -17,10 +17,9 @@ class ActividadController extends Controller
     public function index()
     {
         try{
-
-            $actividades = actividad::where('status',true)              /** falta left join o where in para una determinada empresa  **/
-                                    ->orderBy('id', 'desc')
-                                    ->get();
+             $user = auth()->user();
+             $empresa =  empresa::infoEmpresa($user->id); 
+             $actividades = actividad::listaActividades($empresa->id);
 
             foreach ($actividades as $actividad){
                 $actividad->imagen1 = $this->imagen->ValidarImagen($actividad->imagen1);

@@ -31,4 +31,5 @@ class politica extends Model
 
   }
 
+
 }

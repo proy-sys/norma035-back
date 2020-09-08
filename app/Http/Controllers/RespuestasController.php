@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Models\respuesta;
 use App\Http\Models\trabajador;
+use App\Http\Models\empresa;
 use App\Http\Independientes\calculo;
 use Symfony\Component\HttpFoundation\Response;
 use DB;
@@ -88,7 +89,9 @@ class RespuestasController extends Controller
 
     public function trabajadorResultado($guia){
         try{
-            $respuestaTrabajador = respuesta::trabajadorResultado($guia)->get();
+            $user = auth()->user();
+            $empresa =  empresa::infoEmpresa($user->id); 
+            $respuestaTrabajador = respuesta::trabajadorResultado($guia,$empresa->id)->get();
             return response()->json($respuestaTrabajador,Response::HTTP_OK);
 
         }catch(Excepcion $ex){

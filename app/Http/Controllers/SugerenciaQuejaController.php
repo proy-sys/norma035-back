@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Models\sugerencia_queja;
+use App\Http\Models\empresa;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,20 +13,9 @@ class SugerenciaQuejaController extends Controller
     {
         try{
 
-          $lista = sugerencia_queja::
-                    select('sugerencia_queja.id',
-                           'sugerencia_queja.descripcion',
-                           'sugerencia_queja.status',
-                           'sugerencia_queja.trabajador_id',
-                           'sugerencia_queja.tipo',
-                           'sugerencia_queja.en_proceso',
-                           'sugerencia_queja.conclusion',
-                           'sugerencia_queja.estatus',
-                           'trabajador.nombre')
-                   ->leftJoin('trabajador', 'trabajador.id', '=', 'sugerencia_queja.trabajador_id')
-                   ->where('trabajador.empresa_id',1)   /*prueba para empresa 1*/
-                   ->orderBy('sugerencia_queja.id','ASC')
-                   ->get();    /*reducir consulta en modelo*/
+          $user = auth()->user();
+          $empresa =  empresa::infoEmpresa($user->id);
+          $lista = sugerencia_queja::listaQuejaSugerencia($empresa->id);
 
           return response()->json($lista,Response::HTTP_OK);
 

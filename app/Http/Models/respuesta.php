@@ -36,7 +36,7 @@ class respuesta extends Model
             ->where('trabajador_id', $trab);
 }
 
-   public static function trabajadorResultado($guia){
+   public static function trabajadorResultado($guia,$idEmpresa){
       return  DB::table('respuestas')
                 ->select('trabajador.id',
                          'trabajador.nombre',
@@ -45,7 +45,8 @@ class respuesta extends Model
                           DB::raw('sum(respuestas.respuesta) as resultado'))
               ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
               ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
-              ->where('respuestas.guia_id',$guia);
+              ->where('respuestas.guia_id',$guia)
+              ->where('trabajador.empresa_id',$idEmpresa);
       }
 
     //  ************************************************** CATEGORÍAS *********************************************
@@ -202,6 +203,21 @@ class respuesta extends Model
                 ->groupBy('trabajador.id','trabajador.ocupacion','respuestas.guia_id')
                 ->where('respuestas.guia_id',$guia)
                 ->whereIn('pregunta_id', $pregun);
+    }
+
+    public static function listadoContestaronTrabajadores($idGuia,$idEmpresa){
+      return DB::table('respuestas')
+        ->select('trabajador.id',
+                 'trabajador.nombre',
+                 'trabajador.ocupacion', 
+                 'trabajador.telefono',
+                 'trabajador.email',
+                 'trabajador.tipo_puesto')
+         ->leftJoin('trabajador', 'trabajador.id', '=', 'respuestas.trabajador_id')
+         ->where('trabajador.empresa_id',$idEmpresa)
+         ->where('respuestas.guia_id',$idGuia)
+         ->groupBy('trabajador.id')
+         ->get();
     }
 
 }

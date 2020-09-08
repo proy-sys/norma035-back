@@ -31,9 +31,22 @@ class sugerencia_queja extends Model
        return leftJoin('trabajador', 'id', '=', 'id');
   }*/
 
+  public static function listaQuejaSugerencia($idEmpresa){
 
-
-
-
+     return DB::table('sugerencia_queja')
+             ->select('sugerencia_queja.id',
+                     'sugerencia_queja.descripcion',
+                     'sugerencia_queja.status',
+                     'sugerencia_queja.trabajador_id',
+                     'sugerencia_queja.tipo',
+                     'sugerencia_queja.en_proceso',
+                     'sugerencia_queja.conclusion',
+                     'sugerencia_queja.estatus',
+                     'trabajador.nombre')
+             ->leftJoin('trabajador', 'trabajador.id', '=', 'sugerencia_queja.trabajador_id')
+             ->where('trabajador.empresa_id',$idEmpresa)   
+             ->orderBy('sugerencia_queja.id','ASC')
+             ->get();    
+       }
 
 }

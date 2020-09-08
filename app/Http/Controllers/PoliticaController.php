@@ -36,12 +36,13 @@ class PoliticaController extends Controller
 
    public function verificarEstado(){
 
-        $empresa = empresa::find(1);
+       $user = auth()->user();
+       $empresa =  empresa::infoEmpresa($user->id); 
 
         if(is_null($empresa->politica_id)){
               return response()->json(["status" => true, "estado" => Response::HTTP_OK]); 
         }else{
-              return response()->json(["status" => false, "estado" => Response::HTTP_OK, "id" => $empresa->politica->id]); 
+              return response()->json(["status" => false, "estado" => Response::HTTP_OK, "id" => $empresa->politica_id]); 
         }
 
    }
@@ -49,9 +50,10 @@ class PoliticaController extends Controller
    public function asignarPolitica($id){
     try{
 
-         $empresa = empresa::find(1);              
-         $empresa->politica_id = $id;
-         $empresa->save();  
+         $user = auth()->user();
+         $empresa = empresa::infoEmpresa($user->id);
+         empresa::updatePolitica($empresa->id,$id);            
+         
          return response()->json(Response::HTTP_OK); 
 
        }catch(Excepcion $ex){
@@ -63,11 +65,13 @@ class PoliticaController extends Controller
    public function show($id)
     {
        try{
-           
-            $empresa = empresa::find(1); 
-            $politica = $empresa->politica;  
-            $politica->img = $this->im_g->ValidarImagen($politica->img);
-            return response()->json(["politica"=> $politica,"status"=>false,"estado"=>Response::HTTP_OK]);  /*  false una politica */
+
+          $user = auth()->user();
+          $empresa =  empresa::infoEmpresa($user->id);  
+          $politica = politica::find($empresa->politica_id);
+          $politica->img = $this->im_g->ValidarImagen($politica->img);
+          
+          return response()->json(["politica"=> $politica,"status"=>false,"estado"=>Response::HTTP_OK]);
 
          }catch(Excepcion $ex){
            return response()->json([
@@ -89,6 +93,7 @@ class PoliticaController extends Controller
           return response()->json(['error'=> $ex.getMessage(),206]);
       }
    }
+
     public function update(Request $request,$id)
     {
       try{

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Models\trabajador;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Models\empresa;
+use App\Http\Models\respuesta;
+use App\User;
 
 class TrabajadorController extends Controller
 {
@@ -12,9 +15,10 @@ class TrabajadorController extends Controller
     public function index()
     {
         try{
-            //$trabajadores = trabajador::all();
+             $user = auth()->user();
+             $empresa =  empresa::infoEmpresa($user->id); 
 
-             $trabajadores = trabajador::where('empresa_id',1)          /*prueba para empresa 1 */
+             $trabajadores = trabajador::where('empresa_id',$empresa->id)     
                                         ->where('status',true)  
                                         ->get();
 			
@@ -28,10 +32,20 @@ class TrabajadorController extends Controller
     public function store(Request $request)
     {
         try{
-             
+        
+            // $input = $request->all();
+            // $input['password'] = Hash::make($request->password);
             trabajador::create($request->all());
+            
+            // $user =  new User([
+            //      'id' => $id,
+            //      'username' => 'hola',
+            //      'password' => Hash::make(12345),
+            //      'role' => 0,
+            // ]);
+            // $user->save();
 
-            return response()->json(Response::HTTP_OK);
+           return response()->json(Response::HTTP_OK);
 
        }catch(Excepcion $ex){
 
@@ -39,13 +53,13 @@ class TrabajadorController extends Controller
        }
     }
 
-    public function acceptPolitica($id){
+    public function acceptPolitica(){
 
         try{
             
             $user = auth()->user();
             $trabajador = trabajador::find($user->id);
-            $trabajador->acceptPolitica = true;
+            $trabajador->accept_politica = true;
             $trabajador->save();
 
             return response()->json(Response::HTTP_OK);
@@ -59,7 +73,10 @@ class TrabajadorController extends Controller
 
     public function getNumeroTrabajadores(){
         try{
-             $num_trabajadores = trabajador::where('empresa_id',1)  
+             $user = auth()->user();
+             $empresa =  empresa::infoEmpresa($user->id); 
+
+             $num_trabajadores = trabajador::where('empresa_id',$empresa->id)  
                                            ->where('status',true)  
                                            ->count();
              
@@ -121,20 +138,24 @@ class TrabajadorController extends Controller
              ], 400);
          }
     }
-
-  
-   /* public function destroy($id)
-    {
+    
+    public function getContestaronTrabajadores($idGuia){
         try{
+    
+            $user = auth()->user();
+            $empresa =  empresa::infoEmpresa($user->id); 
+            $trabajadores = respuesta::listadoContestaronTrabajadores($idGuia,$empresa->id);
 
-            $trabajador = trabajador::find($id);
-            $trabajador->delete();  
-            return response()->json(Response::HTTP_OK);
+            return response()->json($trabajadores,Response::HTTP_OK);
+ 
+         }catch (Exception $ex){
+             return response()
+             ->json([
+                       'error' => 'Hubo un error al actualizar el operativo con id => '.$id." : ". $ex->getMessage()
+             ]);
+         }
 
-       }catch(Excepcion $ex){
-
-           return response()->json(['error'=> $ex.getMessage(),206]);
-       }
-    }*/
+    }
+  
 
 }

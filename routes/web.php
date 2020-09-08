@@ -17,7 +17,9 @@ function resourceEmpresa($uri, $controller, $router){
 
 function resourceTrabajador($uri, $controller, $router)
 {
-    $router->get($uri.'/acceptPolitica/{id}',$controller.'@acceptPolitica');
+    
+    $router->get($uri.'/contestaron/{idGuia}',$controller.'@getContestaronTrabajadores');
+    $router->get($uri.'/acceptPolitica',$controller.'@acceptPolitica');
     $router->get($uri.'/cantidad',$controller.'@getNumeroTrabajadores');
     $router->get($uri,$controller.'@index');
     $router->post($uri, $controller.'@store');

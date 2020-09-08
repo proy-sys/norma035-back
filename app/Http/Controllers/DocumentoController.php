@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Models\documento;
 use App\Http\Independientes\Imagen;
+use App\Http\Models\empresa;
 use Symfony\Component\HttpFoundation\Response;
 
 class DocumentoController extends Controller
@@ -17,22 +18,10 @@ class DocumentoController extends Controller
     public function index()
     {
         try {
-           $documentos = documento::
-           select('documentos.id',
-                  'documentos.nombre',
-                  'documentos.tipo',
-                  'documentos.fecha',
-                  'documentos.responsable_id',
-                  'documentos.trabajadores',
-                  'documentos.status',
-                  'trabajador.nombre as trabajador')
-          ->leftJoin('trabajador', 'trabajador.id', '=', 'documentos.responsable_id')
-          ->where('trabajador.empresa_id',1)
-          ->where('documentos.status',true)
-          ->orderBy('documentos.id','desc')
-          ->get();
-
-          return response()->json($documentos,Response::HTTP_OK);
+           $user = auth()->user();
+           $empresa =  empresa::infoEmpresa($user->id); 
+           $documentos = documento::listaDocumentos($empresa->id);
+           return response()->json($documentos,Response::HTTP_OK);
 
          }catch(Excepcion $ex){
             return response()->json(['error'=> $ex.getMessage(),206]);

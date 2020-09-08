@@ -18,11 +18,12 @@ class EmpresaController extends Controller
         
         try{
             
-            $empresa =  empresa::find(1);                  
+            $user = auth()->user();
+            $empresa =  empresa::infoEmpresa($user->id)->first();                 
             $empresa->logo    =  $this->imagen->ValidarImagen($empresa->logo);
             $empresa->imagen  =  $this->imagen->ValidarImagen($empresa->imagen);
             
-             return response()->json($empresa ,Response::HTTP_OK);
+            return response()->json($empresa ,Response::HTTP_OK);
     
           }catch(Excepcion $ex){
              return response()->json(['error'=> $ex.getMessage(),206]);
