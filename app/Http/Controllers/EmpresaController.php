@@ -19,7 +19,7 @@ class EmpresaController extends Controller
         try{
             
             $user = auth()->user();
-            $empresa =  empresa::infoEmpresa($user->id)->first();                 
+            $empresa =  empresa::infoEmpresa($user->id);                
             $empresa->logo    =  $this->imagen->ValidarImagen($empresa->logo);
             $empresa->imagen  =  $this->imagen->ValidarImagen($empresa->imagen);
             

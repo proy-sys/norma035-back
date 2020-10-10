@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Models\trabajador;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Models\empresa;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Models\respuesta;
 use App\User;
 
@@ -32,20 +33,17 @@ class TrabajadorController extends Controller
     public function store(Request $request)
     {
         try{
-        
-            // $input = $request->all();
-            // $input['password'] = Hash::make($request->password);
-            trabajador::create($request->all());
-            
-            // $user =  new User([
-            //      'id' => $id,
-            //      'username' => 'hola',
-            //      'password' => Hash::make(12345),
-            //      'role' => 0,
-            // ]);
-            // $user->save();
 
-           return response()->json(Response::HTTP_OK);
+            $trabajador = trabajador::create($request->all());
+            $user = new User([
+                'id' => $trabajador->id,
+                'username' => $trabajador->email,
+                'password' => Hash::make("12345"),
+                'role' => 0,
+            ]);
+            $user->save();
+
+            return response()->json(Response::HTTP_OK);
 
        }catch(Excepcion $ex){
 

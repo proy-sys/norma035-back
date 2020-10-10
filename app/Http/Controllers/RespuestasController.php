@@ -103,7 +103,9 @@ class RespuestasController extends Controller
     public function resultadoTotal($guia){
 
         try{
-            $respuestaTrabajador = respuesta::trabajadorResultado($guia)->get();
+            $user = auth()->user();
+            $empresa =  empresa::infoEmpresa($user->id);
+            $respuestaTrabajador = respuesta::trabajadorResultado($guia,$empresa->id)->get();
             $cnulo = 0;
             $cbajo = 0;
             $cmedio = 0;
@@ -112,19 +114,19 @@ class RespuestasController extends Controller
             if ($guia == 2) {
                 foreach($respuestaTrabajador as $resp) {
                     if ($resp->resultado < 20) $cnulo += 1;
-                    if ($resp->resultado >= 20 and $resp->resultado < 75) $cbajo += 1;
-                    if ($resp->resultado >= 45 and $resp->resultado < 70) $cmedio += 1;
-                    if ($resp->resultado >= 70 and $resp->resultado < 90) $calto += 1;
-                    if ($resp->resultado >= 90) $cmuyalto += 1;
+                    else if ($resp->resultado >= 20 and $resp->resultado < 45) $cbajo += 1;
+                    else if ($resp->resultado >= 45 and $resp->resultado < 70) $cmedio += 1;
+                    else if ($resp->resultado >= 70 and $resp->resultado < 90) $calto += 1;
+                    else if ($resp->resultado >= 90) $cmuyalto += 1;
                 }
             }
             if ($guia == 3) {
                 foreach($respuestaTrabajador as $resp) {
                     if ($resp->resultado < 50) $cnulo += 1;
-                    if ($resp->resultado >= 50 and $resp->resultado < 75) $cbajo += 1;
-                    if ($resp->resultado >= 75 and $resp->resultado < 99) $cmedio += 1;
-                    if ($resp->resultado >= 99 and $resp->resultado < 140) $calto += 1;
-                    if ($resp->resultado >= 140) $cmuyalto += 1;
+                   else if ($resp->resultado >= 50 and $resp->resultado < 75) $cbajo += 1;
+                   else if ($resp->resultado >= 75 and $resp->resultado < 99) $cmedio += 1;
+                   else if ($resp->resultado >= 99 and $resp->resultado < 140) $calto += 1;
+                   else if ($resp->resultado >= 140) $cmuyalto += 1;
                 }
             }
             $contadorRespustas = ['name' => ['Nulo', 'Bajo', 'Medio', 'Alto', 'Muy alto',] , 'value' => [$cnulo, $cbajo, $cmedio, $calto, $cmuyalto]];
@@ -139,11 +141,15 @@ class RespuestasController extends Controller
 
     // ****************************************** Ambiente de trabajo  ******************************************
     public function resultadoCategoriaAmb($guia){
+
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [1, 2, 3];
         if ($guia == 3) $pregun = [1, 2, 3, 4, 5];
 
         try{
-            $respuesta = respuesta::trabajadorCategoriaAmb($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorCategoriaAmb($guia, $pregun,$empresa->id)->get();
             $cnulo = 0;
             $cbajo = 0;
             $cmedio = 0;
@@ -177,11 +183,15 @@ class RespuestasController extends Controller
 
     // ******************************************* Factores propios  ******************************************
     public function resultadoCategoriaFac($guia){
+
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 18, 19, 20, 21, 22, 26, 27, 41, 42, 43];
         if ($guia == 3) $pregun = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 23, 24, 25, 26, 27, 28, 29, 30, 35, 36, 65, 66, 67, 68];
 
         try{
-            $respuesta = respuesta::trabajadorCategoriaFac($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorCategoriaFac($guia, $pregun,$empresa->id)->get();
             $cnulo = 0;
             $cbajo = 0;
             $cmedio = 0;
@@ -216,10 +226,13 @@ class RespuestasController extends Controller
 
     // **************************************** Organización del tiempo ***************************************
     public function resultadoCategoriaOrg($guia){
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [14, 15, 16, 17];
         if ($guia == 3) $pregun = [17, 18, 19, 20, 21, 22];
         try{
-            $respuesta = respuesta::trabajadorCategoriaOrg($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorCategoriaOrg($guia, $pregun,$empresa->id)->get();
             $cnulo = 0;
             $cbajo = 0;
             $cmedio = 0;
@@ -253,10 +266,13 @@ class RespuestasController extends Controller
 
     // ********************************************* Liderazgo ***************************************************
     public function resultadoCategoriaLid($guia){
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 44, 45, 46];
         if ($guia == 3) $pregun = [32, 33, 34, 38, 39, 40, 41, 43, 44, 45, 46, 58, 59, 60, 61, 62, 63, 64, 70, 71, 72];
         try{
-            $respuesta = respuesta::trabajadorCategoriaLid($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorCategoriaLid($guia, $pregun,$empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
 
             if ($guia == 2) {
@@ -287,9 +303,12 @@ class RespuestasController extends Controller
 
     // ***************************************** Entorno organizacional ******************************************
     public function resultadoCategoriaEnt($guia){
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 3) $pregun = [47, 48, 49, 50, 51, 52, 53, 54, 55, 56];
         try{
-            $respuesta = respuesta::trabajadorCategoriaEnt($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorCategoriaEnt($guia, $pregun,$empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             foreach($respuesta as $resp) {
                 if ($resp->resultado < 10) $cnulo += 1;
@@ -309,10 +328,13 @@ class RespuestasController extends Controller
 
     // ============================================= 1 ============================================
     public function resultadoDominio1($guia){
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [1, 2, 3];
         if ($guia == 3) $pregun = [1, 2, 3, 4, 5];
         try{
-            $respuesta = respuesta::trabajadorDominio1($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorDominio1($guia, $pregun,$empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             if ($guia == 2) {
                 foreach($respuesta as $resp) {
@@ -341,10 +363,13 @@ class RespuestasController extends Controller
     }
     // ============================================= 2 ============================================
     public function resultadoDominio2($guia){
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 41, 42, 43];
         if ($guia == 3) $pregun = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 65, 66, 67, 68];
         try{
-            $respuesta = respuesta::trabajadorDominio2($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorDominio2($guia, $pregun,$empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             if ($guia == 2) {
                 foreach($respuesta as $resp) {
@@ -373,10 +398,13 @@ class RespuestasController extends Controller
     }
     // ============================================= 3 ============================================
     public function resultadoDominio3($guia){
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [18, 19, 20, 21, 22, 26, 27];
         if ($guia == 3) $pregun = [25, 26, 27, 28, 29, 30, 35, 36];
         try{
-            $respuesta = respuesta::trabajadorDominio3($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorDominio3($guia, $pregun, $empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             if ($guia == 2) {
                 foreach($respuesta as $resp) {
@@ -405,10 +433,13 @@ class RespuestasController extends Controller
     }
     // ============================================= 4 ============================================
     public function resultadoDominio4($guia){
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [14, 15];
         if ($guia == 3) $pregun = [17, 18];
         try{
-            $respuesta = respuesta::trabajadorDominio4($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorDominio4($guia, $pregun, $empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             if ($guia == 2) {
                 foreach($respuesta as $resp) {
@@ -437,10 +468,13 @@ class RespuestasController extends Controller
     }
     // ============================================= 5 ============================================
     public function resultadoDominio5($guia){
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [16, 17];
         if ($guia == 3) $pregun = [19, 20, 21, 22];
         try{
-            $respuesta = respuesta::trabajadorDominio5($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorDominio5($guia, $pregun, $empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             if ($guia == 2) {
                 foreach($respuesta as $resp) {
@@ -469,10 +503,14 @@ class RespuestasController extends Controller
     }
     // ============================================= 6 ============================================
     public function resultadoDominio6($guia){
+
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [23, 24, 25, 28, 29];
         if ($guia == 3) $pregun = [31, 32, 33, 34, 37, 38, 39, 40, 41];
         try{
-            $respuesta = respuesta::trabajadorDominio6($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorDominio6($guia, $pregun, $empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             if ($guia == 2) {
                 foreach($respuesta as $resp) {
@@ -501,10 +539,14 @@ class RespuestasController extends Controller
     }
     // ============================================= 7 ============================================
     public function resultadoDominio7($guia){
+
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 2) $pregun = [30, 31, 32, 44, 45, 46];
         if ($guia == 3) $pregun = [42, 43, 44, 45, 46, 69, 70, 71, 72];
         try{
-            $respuesta = respuesta::trabajadorDominio7($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorDominio7($guia, $pregun,$empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             if ($guia == 2) {
                 foreach($respuesta as $resp) {
@@ -533,10 +575,15 @@ class RespuestasController extends Controller
     }
     // ============================================= 8 ============================================
     public function resultadoDominio8($guia){
+
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
+
         if ($guia == 2) $pregun = [33, 34, 35, 36, 37, 38, 39, 40];
         if ($guia == 3) $pregun = [57, 58, 59, 60, 61, 62, 63, 64];
         try{
-            $respuesta = respuesta::trabajadorDominio8($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorDominio8($guia, $pregun,$empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             if ($guia == 2) {
                 foreach($respuesta as $resp) {
@@ -566,9 +613,12 @@ class RespuestasController extends Controller
 
     // ============================================= 7 ============================================
     public function resultadoDominio9($guia){
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 3) $pregun = [47, 48, 49, 50, 51, 52];
         try{
-            $respuesta = respuesta::trabajadorDominio9($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorDominio9($guia, $pregun,$empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             foreach($respuesta as $resp) {
                 if ($resp->resultado < 6) $cnulo += 1;
@@ -586,9 +636,12 @@ class RespuestasController extends Controller
     }
     // ============================================= 8 ============================================
     public function resultadoDominio10($guia){
+        $user = auth()->user();
+        $empresa =  empresa::infoEmpresa($user->id);
+
         if ($guia == 3) $pregun = [53, 54, 55, 56];
         try{
-            $respuesta = respuesta::trabajadorDominio10($guia, $pregun)->get();
+            $respuesta = respuesta::trabajadorDominio10($guia, $pregun,$empresa->id)->get();
             $cnulo = 0; $cbajo = 0; $cmedio = 0; $calto = 0; $cmuyalto = 0;
             foreach($respuesta as $resp) {
                 if ($resp->resultado < 4) $cnulo += 1;
